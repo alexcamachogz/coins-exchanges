@@ -1,9 +1,9 @@
-import Vue from "vue"
-import Router from "vue-router"
+import Vue from 'vue'
+import Router from 'vue-router'
 
-import Home from "@/views/Home"
-import Error from "@/views/Error"
-import About from "@/views/About"
+import Home from '@/views/Home'
+import Error from '@/views/Error'
+import About from '@/views/About'
 
 Vue.use(Router)
 
