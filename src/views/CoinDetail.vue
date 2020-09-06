@@ -120,20 +120,55 @@
 					])
 				"
 			/>
+
+			<h3 class="text-xl my-10">Mejores Ofertas de Cambio</h3>
+			<table class="w-full text-center">
+				<tr
+					v-for="m in markets"
+					:key="`${m.exchangeId}-${m.priceUsd}`"
+					class="border-b"
+				>
+					<td>
+						<b>{{ m.exchangeId }}</b>
+					</td>
+					<td>{{ m.priceUsd | dollar }}</td>
+					<td>{{ m.baseSymbol }} / {{ m.quoteSymbol }}</td>
+					<td>
+						<a
+							v-if="m.url"
+							class="hover:underline text-pink-600"
+							target="_blank"
+							>{{ m.url }}</a
+						>
+						<px-button
+							:is-loading="m.isLoading || false"
+							v-else
+							@click="getWebSite(m)"
+						>
+							<slot>Obtener Link</slot>
+						</px-button>
+					</td>
+				</tr>
+			</table>
 		</template>
 	</div>
 </template>
 
 <script>
+import PxButton from "@/components/PxButton";
 import api from "@/api";
+
 export default {
 	name: "CoinDetail",
+
+	components: { PxButton },
 
 	data() {
 		return {
 			isLoading: false,
 			asset: {},
 			history: [],
+			markets: [],
 		};
 	},
 
@@ -161,14 +196,32 @@ export default {
 	},
 
 	methods: {
+		getWebSite(exchange) {
+			this.$set(exchange, "isLoading", true);
+
+			return api
+				.getExchange(exchange.exchangeId)
+				.then((res) => {
+					this.$set(exchange, "url", res.exchangeUrl);
+				})
+				.finally(() => {
+					this.$set(exchange, "isLoading", false);
+				});
+		},
+
 		getCoin() {
 			const id = this.$route.params.id;
 			this.isLoading = true;
 
-			Promise.all([api.getAsset(id), api.getAssetHistory(id)])
-				.then(([asset, history]) => {
+			Promise.all([
+				api.getAsset(id),
+				api.getAssetHistory(id),
+				api.getMarkets(id),
+			])
+				.then(([asset, history, markets]) => {
 					this.asset = asset;
 					this.history = history;
+					this.markets = markets;
 				})
 				.finally(() => (this.isLoading = false));
 		},
