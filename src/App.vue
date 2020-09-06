@@ -4,16 +4,19 @@
 		<router-view
 			class="container px-5 sm:px-20 py-20 flex justify-center"
 		/>
+		<px-footer />
 	</main>
 </template>
 
 <script>
 import PxHeader from "@/components/PxHeader";
+import PxFooter from "@/components/PxFooter";
 
 export default {
 	name: "App",
 	components: {
 		PxHeader,
+		PxFooter,
 	},
 
 	data() {

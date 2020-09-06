@@ -8,6 +8,7 @@
 <script>
 import api from "@/api";
 import PxAssetsTable from "@/components/PxAssetsTable";
+// import PxFooter from "@/components/PxFooter";
 
 export default {
 	name: "Home",
