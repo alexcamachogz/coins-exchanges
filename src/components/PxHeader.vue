@@ -4,7 +4,7 @@
 			<nav class="flex items-center justify-between flex-wrap bg-pink-700 p-6">
 				<div class="flex items-center flex-shrink-0 text-white mr-6">
 					<px-icon class="mr-2" />
-					<span class="font-semibold text-xl tracking-tight">Coins Exchange</span>
+					<router-link to="/" class="font-semibold text-xl tracking-tight">Coins Exchange</router-link>
 				</div>
 				<div class="hidden sm:block w-full blok flex-grow lg:flex lg:items-center lg:w-auto">
 					<div class="text-sm lg:flex-grow"></div>

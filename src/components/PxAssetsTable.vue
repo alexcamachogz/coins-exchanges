@@ -12,11 +12,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr
-				class="border-b border-gray-200 hover:bg-gray-100"
-				v-for="a in assets"
-				:key="a.id"
-			>
+			<tr class="border-b border-gray-200 hover:bg-gray-100" v-for="a in assets" :key="a.id">
 				<td>
 					<img
 						class="w-6 h-6"
@@ -27,7 +23,13 @@
 					/>
 				</td>
 				<td>#{{ a.rank }}</td>
-				<td>{{ a.name }}</td>
+				<td>
+					<router-link
+						class="hover:underline text-pink-600"
+						:to="{ name: 'coin-detail', params: { id: a.name.toLowerCase() } }"
+					>{{ a.name }}</router-link>
+					<small class="ml-1 text-gray-500">{{ a.symbol }}</small>
+				</td>
 				<td>{{ a.priceUsd | dollar }}</td>
 				<td>{{ a.marketCapUsd | dollar }}</td>
 				<td
@@ -37,25 +39,36 @@
 							: 'text-green-600'
 					"
 				>
-					<span v-if="a.changePercent24Hr.includes('-')"
-						>👎🏻 {{ a.changePercent24Hr | percent }}</span
-					>
+					<span v-if="a.changePercent24Hr.includes('-')">👎🏻 {{ a.changePercent24Hr | percent }}</span>
 					<span v-else>👍🏻 {{ a.changePercent24Hr | percent }}</span>
 				</td>
-				<td class="hidden sm:block"></td>
+				<td class="hidden sm:block">
+					<px-button @click="goToCoin(a.id)">
+						<span>Detalle</span>
+					</px-button>
+				</td>
 			</tr>
 		</tbody>
 	</table>
 </template>
 
 <script>
+import PxButton from "@/components/PxButton";
 export default {
 	name: "PxAssetsTable",
+
+	components: { PxButton },
 
 	props: {
 		assets: {
 			type: Array,
 			default: () => [],
+		},
+	},
+
+	methods: {
+		goToCoin(id) {
+			this.$router.push({ name: "coin-detail", params: { id } });
 		},
 	},
 };
