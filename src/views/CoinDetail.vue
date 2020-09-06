@@ -39,7 +39,13 @@
 						</li>
 						<li class="flex justify-between">
 							<b class="text-gray-600 mr-10 uppercase">Variación 24hs</b>
-							<span>{{ asset.changePercent24Hr | percent }}</span>
+							<span :class="asset.changePercent24Hr.includes('-') ? 'text-red-600' : 'text-green-600'">
+								<!-- {{ asset.changePercent24Hr | percent }} -->
+								<span
+									v-if="asset.changePercent24Hr.includes('-')"
+								>{{ asset.changePercent24Hr | percent }} 👎🏻</span>
+								<span v-else>{{ asset.changePercent24Hr | percent }} 👍🏻</span>
+							</span>
 						</li>
 					</ul>
 				</div>
