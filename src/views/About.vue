@@ -16,7 +16,7 @@
 
 		<router-link
 			to="/"
-			class="mt-5 text-base text-pink-600 border-2 border-pink-600 rounded-lg p-3 hover:bg-pink-600 hover:text-white"
+			class="mt-5 text-base text-pink-600 border-2 border-pink-600 rounded-lg p-3 hover:bg-pink-600 hover:text-whitevu"
 			>Volver a la pagina de Inicio</router-link
 		>
 	</div>
